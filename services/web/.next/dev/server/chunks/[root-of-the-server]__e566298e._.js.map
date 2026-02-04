@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 58, "column": 0}, "map": {"version":3,"sources":["file:///app/auth.ts"],"sourcesContent":["import NextAuth from \"next-auth\";\nimport Google from \"next-auth/providers/google\";\n\n\nexport const { handlers, auth, signIn, signOut } = NextAuth({\n  providers: [\n    Google({\n      clientId: process.env.GOOGLE_CLIENT_ID!,\n      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,\n    }),\n  ],\n  session: { strategy: \"jwt\" },\n});\n"],"names":[],"mappings":";;;;;;;;;;AAAA;AACA;AAAA;;;AAGO,MAAM,EAAE,QAAQ,EAAE,IAAI,EAAE,MAAM,EAAE,OAAO,EAAE,GAAG,IAAA,kKAAQ,EAAC;IAC1D,WAAW;QACT,IAAA,kKAAM,EAAC;YACL,UAAU,QAAQ,GAAG,CAAC,gBAAgB;YACtC,cAAc,QAAQ,GAAG,CAAC,oBAAoB;QAChD;KACD;IACD,SAAS;QAAE,UAAU;IAAM;AAC7B"}},
-    {"offset": {"line": 88, "column": 0}, "map": {"version":3,"sources":["file:///app/app/api/%5B...nextauth%5D/route.ts"],"sourcesContent":["import { handlers } from \"@/auth\";\n\nexport const { GET, POST } = handlers;\n"],"names":[],"mappings":";;;;;;AAAA;;AAEO,MAAM,EAAE,GAAG,EAAE,IAAI,EAAE,GAAG,kHAAQ"}}]
-}

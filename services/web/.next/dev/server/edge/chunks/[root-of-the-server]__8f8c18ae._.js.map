@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/auth.ts"],"sourcesContent":["import NextAuth from \"next-auth\";\nimport Google from \"next-auth/providers/google\";\n\n\nexport const { handlers, auth, signIn, signOut } = NextAuth({\n  providers: [\n    Google({\n      clientId: process.env.GOOGLE_CLIENT_ID!,\n      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,\n    }),\n  ],\n  session: { strategy: \"jwt\" },\n});\n"],"names":[],"mappings":";;;;;;;;;;AAAA;AACA;AAAA;;;AAGO,MAAM,EAAE,QAAQ,EAAE,IAAI,EAAE,MAAM,EAAE,OAAO,EAAE,GAAG,IAAA,wKAAQ,EAAC;IAC1D,WAAW;QACT,IAAA,wKAAM,EAAC;YACL,UAAU,QAAQ,GAAG,CAAC,gBAAgB;YACtC,cAAc,QAAQ,GAAG,CAAC,oBAAoB;QAChD;KACD;IACD,SAAS;QAAE,UAAU;IAAM;AAC7B"}},
-    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/middleware.ts"],"sourcesContent":["export { auth as middleware } from \"@/auth\";\n\nexport const config = {\n  matcher: [\"/app/:path*\", \"/dashboard/:path*\"],\n};\n"],"names":[],"mappings":";;;;AAAA;;AAEO,MAAM,SAAS;IACpB,SAAS;QAAC;QAAe;KAAoB;AAC/C"}}]
-}
