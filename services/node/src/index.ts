@@ -1,0 +1,97 @@
+import express from "express";
+import fs from "node:fs/promises";
+import path from "node:path";
+
+
+const app = express();
+
+const PYTHON_BASE_URL = process.env.PYTHON_BASE_URL ?? "http://127.0.0.1:8000";
+const OUTPUT_DIR = process.env.OUTPUT_DIR ?? "/shared/videos";
+
+app.get("/", (_req, res) => {
+  res.type("text").send("OK - Node is running. Try /health or /python/health");
+});
+
+app.get("/health", (_req, res) => res.json({ ok: true, service: "node" }));
+
+app.get("/python/health", async (_req, res) => {
+  try {
+    const r = await fetch(`${PYTHON_BASE_URL}/health`);
+    if (!r.ok) {
+      return res.status(502).json({ ok: false, error: `Python returned ${r.status}` });
+    }
+    const data = await r.json();
+    return res.json({ ok: true, python: data });
+  } catch (err: any) {
+    return res.status(502).json({ ok: false, error: err?.message ?? String(err) });
+  }
+});
+
+app.get("/python/compute", async (req, res) => {
+  const x = req.query.x ?? "2";
+  const y = req.query.y ?? "3";
+
+  try {
+    const url = new URL(`${PYTHON_BASE_URL}/compute`);
+    url.searchParams.set("x", String(x));
+    url.searchParams.set("y", String(y));
+
+    const r = await fetch(url);
+    if (!r.ok) {
+      return res.status(502).json({ ok: false, error: `Python returned ${r.status}` });
+    }
+    const data = await r.json();
+    return res.json({ ok: true, python: data });
+  } catch (err: any) {
+    return res.status(502).json({ ok: false, error: err?.message ?? String(err) });
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Node listening on http://localhost:3000");
+  console.log(`Calling Python at ${PYTHON_BASE_URL}`);
+});
+
+
+// List output files
+app.get("/outputs", async (_req, res) => {
+  try {
+    const entries = await fs.readdir(OUTPUT_DIR, { withFileTypes: true });
+
+    const files = entries
+      .filter((e) => e.isFile())
+      .map((e) => e.name)
+      .sort((a, b) => a.localeCompare(b));
+
+    res.json({ ok: true, outputDir: OUTPUT_DIR, files });
+  } catch (e: any) {
+    res.status(500).json({ ok: false, error: e?.message ?? String(e) });
+  }
+});
+
+// Download an output file (safe against path traversal)
+app.get("/outputs/:name", async (req, res) => {
+  try {
+    const name = String(req.params.name);
+
+    // Basic guard: do not allow slashes/backslashes
+    if (name.includes("/") || name.includes("\\")) {
+      return res.status(400).json({ ok: false, error: "Invalid file name" });
+    }
+
+    const filePath = path.join(OUTPUT_DIR, name);
+
+    // Ensure file exists
+    await fs.access(filePath);
+
+    // Send file
+    return res.sendFile(filePath);
+  } catch (e: any) {
+    const msg = e?.message ?? String(e);
+    // If file missing, return 404
+    if (msg.includes("no such file") || msg.includes("ENOENT")) {
+      return res.status(404).json({ ok: false, error: "File not found" });
+    }
+    return res.status(500).json({ ok: false, error: msg });
+  }
+});

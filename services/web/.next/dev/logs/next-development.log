@@ -1,0 +1,353 @@
+[00:00:01.549] Server  LOG     ✓ Ready in 1069ms
+[00:00:10.480] Server  LOG     ○ Compiling / ...
+[00:00:14.726] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:43.401] Server  LOG       Reload env: .env.local
+[00:01:45.556] Server  LOG     ✓ Compiled in 0ms
+[00:04:26.603] Server  ERROR   Image generation error: Error: 400 Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID req_b3e1cf5e432f419681ff096aa1fb043c. safety_violations=[sexual].
+[00:06:19.399] Server  ERROR   Image generation error: Error: 400 Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID req_70dd4a9fc8cd4d6495beeb3d94bde3c7. safety_violations=[sexual].
+[00:15:54.815] Server  LOG     ✓ Compiled in 102ms
+[00:15:58.613] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:37.483] Server  ERROR   [auth][error] UnknownAction: Cannot parse action at /api/assets/base-mesh. Read more at https://errors.authjs.dev#unknownaction
+[00:20:37.484] Server  ERROR       at parseActionAndProviderId (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:1172:27)
+    at toInternalRequest (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:1115:40)
+    at Auth (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:5325:212)
+    at httpHandler (/app/.next/dev/server/chunks/node_modules_b599abdb._.js:4342:198)
+    at AsyncLocalStorage.run (node:async_hooks:335:14)
+    at AppRouteRouteModule.do (/app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37945)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47941
+    at /app/node_modules/next/dist/server/lib/trace/tracer.js:185:36
+    at NoopContextManager.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /app/node_modules/next/dist/server/lib/trace/tracer.js:154:103
+    at NoopContextManager.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (/app/node_modules/next/dist/server/lib/trace/tracer.js:154:28)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47780
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45275
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45232
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at AppRouteRouteModule.handle (/app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45186)
+[00:29:15.768] Server  LOG     ✓ Compiled in 149ms
+[00:29:24.193] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:33.300] Server  ERROR   [auth][error] UnknownAction: Cannot parse action at /api/assets/base-mesh. Read more at https://errors.authjs.dev#unknownaction
+[00:29:33.300] Server  ERROR       at parseActionAndProviderId (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:1172:27)
+    at toInternalRequest (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:1115:40)
+    at Auth (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:5325:212)
+    at httpHandler (/app/.next/dev/server/chunks/node_modules_b599abdb._.js:4342:198)
+    at AsyncLocalStorage.run (node:async_hooks:335:14)
+    at AppRouteRouteModule.do (/app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37945)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47941
+    at /app/node_modules/next/dist/server/lib/trace/tracer.js:185:36
+    at NoopContextManager.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /app/node_modules/next/dist/server/lib/trace/tracer.js:154:103
+    at NoopContextManager.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (/app/node_modules/next/dist/server/lib/trace/tracer.js:154:28)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47780
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45275
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45232
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at AppRouteRouteModule.handle (/app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45186)
+[00:29:38.712] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:40.924] Server  ERROR   [auth][error] UnknownAction: Cannot parse action at /api/assets/base-mesh. Read more at https://errors.authjs.dev#unknownaction
+[00:29:40.925] Server  ERROR       at parseActionAndProviderId (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:1172:27)
+    at toInternalRequest (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:1115:40)
+    at Auth (/app/.next/dev/server/chunks/node_modules_@auth_core_83efb00c._.js:5325:212)
+    at httpHandler (/app/.next/dev/server/chunks/node_modules_b599abdb._.js:4342:198)
+    at AsyncLocalStorage.run (node:async_hooks:335:14)
+    at AppRouteRouteModule.do (/app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37945)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47941
+    at /app/node_modules/next/dist/server/lib/trace/tracer.js:185:36
+    at NoopContextManager.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /app/node_modules/next/dist/server/lib/trace/tracer.js:154:103
+    at NoopContextManager.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/app/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (/app/node_modules/next/dist/server/lib/trace/tracer.js:154:28)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47780
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45275
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at /app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45232
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at AppRouteRouteModule.handle (/app/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45186)
+[00:36:23.975] Server  LOG     ✓ Compiled in 192ms
+[00:41:12.843] Server  LOG     ✓ Compiled in 143ms
+[00:41:13.888] Browser LOG     MESH: high-polyMesh mat: high-poly
+[00:41:13.888] Browser LOG     MESH: human_dev_t_baseMesh mat: human_dev_t_base
+[00:41:29.724] Browser LOG     MESH: high-polyMesh mat: high-poly
+[00:41:29.724] Browser LOG     MESH: human_dev_a_baseMesh mat: human_dev_a_base
+[00:41:31.338] Browser LOG     MESH: high-polyMesh mat: high-poly
+[00:41:31.338] Browser LOG     MESH: human_dev_t_baseMesh mat: human_dev_t_base
+[00:52:52.237] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:19.398] Server  LOG     ✓ Compiled in 113ms
+[00:59:46.251] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:06:07.284] Server  LOG     ✓ Compiled in 146ms
+[01:06:08.053] Browser ERROR   ./components/workspace/character/CharacterModelTool.tsx:1017:17
+Parsing ecmascript source code failed
+  1015 |                   {busy ? "Generating…" : `Generate (${viewsToGenerate.length} views)`}
+  1016 |                 </button>
+> 1017 |               </>
+       |                 ^
+  1018 |             )}
+  1019 |           </div>
+  1020 |
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./components/workspace/character/CharacterModelTool.tsx [Client Component Browser]
+    ./components/workspace/WorkspaceRouter.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/workspace/character/CharacterModelTool.tsx [Client Component SSR]
+    ./components/workspace/WorkspaceRouter.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[01:17:34.579] Browser ERROR   unhandledRejection: TypeError: NetworkError when attempting to fetch resource.
+[01:17:46.144] Browser LOG     MESH: dev_test_fileMesh mat: dev_test_file
+[01:17:46.144] Browser LOG     MESH: high-polyMesh mat: high-poly
+[01:18:15.414] Browser LOG     MESH: dev_test_fileMesh mat: dev_test_file
+[01:18:15.414] Browser LOG     MESH: high-polyMesh mat: high-poly
+[01:18:16.409] Browser LOG     MESH: dev_test_fileMesh mat: dev_test_file
+[01:18:16.409] Browser LOG     MESH: high-polyMesh mat: high-poly
+[01:22:43.324] Server  LOG     ✓ Compiled in 228ms
+[01:22:44.364] Browser LOG     MESH: dev_test_fileMesh mat: dev_test_file
+[01:22:44.364] Browser LOG     MESH: high-polyMesh mat: high-poly
+[01:38:47.927] Server  LOG     ✓ Compiled in 282ms
+[01:38:49.458] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:38:49.458] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:05.019] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:05.019] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:05.885] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:05.885] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:06.740] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:06.740] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:07.760] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:07.760] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:08.552] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:08.552] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:09.330] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:09.330] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:10.879] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:10.879] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:11.888] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:11.888] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:12.909] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:12.909] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:13.694] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:13.694] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:14.618] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:14.618] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:15.700] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:15.700] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:16.490] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:16.490] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:17.690] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:17.690] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:19.177] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:19.177] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:20.435] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:20.435] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:23.311] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:23.311] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:24.681] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:24.681] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:25.454] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:25.454] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:26.724] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:26.724] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:27.719] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:27.719] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:29.833] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:29.833] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:30.622] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:30.622] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:32.204] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:32.204] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:33.006] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:33.006] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:34.061] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:34.061] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:39:34.874] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:39:34.874] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:42:07.202] Server  LOG     ✓ Compiled in 131ms
+[01:42:08.270] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:42:08.270] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:42:17.671] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:42:18.523] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:42:18.523] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:43:25.268] Server  LOG     ✓ Compiled in 109ms
+[01:43:26.202] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:43:26.202] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:47:14.088] Server  LOG     ✓ Compiled in 125ms
+[01:47:15.123] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:47:15.123] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:47:21.340] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:47:22.229] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:47:22.229] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:50:13.992] Server  LOG     ✓ Compiled in 120ms
+[01:50:15.047] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:50:15.047] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:50:23.389] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:50:24.258] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:50:24.258] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:53:43.993] Server  LOG     ✓ Compiled in 87ms
+[01:53:45.040] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:53:45.040] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:54:02.873] Server  LOG     ✓ Compiled in 130ms
+[01:54:03.911] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:54:03.911] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:55:55.217] Server  LOG     ✓ Compiled in 61ms
+[01:55:56.266] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:55:56.266] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:56:01.042] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:56:01.934] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:56:01.934] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:57:34.886] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:57:34.886] Browser LOG     [DEFORM CHECK] human_dev_a_baseMesh {"allowed":true,"allowedByName":true}
+[01:57:35.781] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:57:35.781] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[01:58:56.389] Server  LOG     ✓ Compiled in 106ms
+[01:58:57.436] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[01:58:57.436] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:41.389] Server  LOG     ✓ Compiled in 59ms
+[02:01:42.451] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:01:42.451] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:46.209] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:01:46.464] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:01:46.464] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:48.053] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:01:48.053] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:48.981] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:01:48.981] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:50.367] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:50.368] Browser LOG     [DEFORM CHECK] human_dev_a_baseMesh {"allowed":true,"allowedByName":true}
+[02:01:51.190] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:01:51.191] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:55.243] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:55.244] Browser LOG     [DEFORM CHECK] human_dev_a_baseMesh {"allowed":true,"allowedByName":true}
+[02:01:59.286] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:01:59.286] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:59.847] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:01:59.847] Browser LOG     [DEFORM CHECK] human_dev_a_baseMesh {"allowed":true,"allowedByName":true}
+[02:02:03.729] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:02:03.729] Browser LOG     [DEFORM CHECK] human_dev_a_baseMesh {"allowed":true,"allowedByName":true}
+[02:02:05.068] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:02:05.068] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:02:06.055] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:02:06.055] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:04:10.545] Server  LOG     ✓ Compiled in 56ms
+[02:04:11.608] Browser ERROR   The final argument passed to %s changed size between renders. The order and size of this array must remain constant.
+
+Previous: %s
+Incoming: %s useEffect [[object Blob], [object Object]] [[object Blob]]
+[02:04:11.608] Browser LOG     [DEFORM CHECK] dev_test_fileMesh {"allowed":true,"allowedByName":true}
+[02:04:11.608] Browser LOG     [DEFORM CHECK] high-polyMesh {"allowed":true,"allowedByName":true}
+[02:17:57.812] Server  LOG     ✓ Compiled in 81ms
+[02:18:04.824] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:18:27.972] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:22:02.580] Server  LOG     ✓ Compiled in 85ms
+[02:22:49.711] Server  LOG     ✓ Compiled in 57ms
+[02:22:50.777] Browser LOG     [BODY PICK] dev_test_fileMesh {"uuid":"f76a8ca9-4577-44f5-8eb2-a0ce8b0e3994","vCount":35937}
+[02:24:30.279] Server  LOG     ✓ Compiled in 78ms
+[02:24:31.332] Browser LOG     [BODY PICK] dev_test_fileMesh {"uuid":"5d92ad27-95cc-4671-baa3-4e3cfb12dd16","vCount":35937}
+[02:25:28.385] Server  LOG     ✓ Compiled in 56ms
+[02:25:29.432] Browser LOG     [BODY PICK] dev_test_fileMesh {"uuid":"075c87f6-ede0-4b3c-9c3c-582ac3caf565","vCount":35937}
+[02:27:09.435] Server  LOG     ✓ Compiled in 73ms
+[02:27:10.477] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"1ecd8f86-f5d2-4911-af3e-961a103ae0e2"}
+[02:28:09.469] Server  LOG     ✓ Compiled in 95ms
+[02:28:10.517] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"4c47d977-3a0e-43b8-b422-029a1095270d"}
+[02:29:06.578] Server  LOG     ✓ Compiled in 68ms
+[02:29:07.644] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"b26d98cf-e181-47d1-83e7-bca51fd974d9"}
+[02:31:00.512] Server  LOG     ✓ Compiled in 61ms
+[02:31:01.567] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"946c80f6-4f48-4102-8b22-98c1caaa0117"}
+[02:32:16.964] Server  LOG     ✓ Compiled in 62ms
+[02:32:18.006] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"8985a6a5-7a0d-4f8f-8bb1-8ba82382c0ce"}
+[02:32:53.022] Server  LOG     ✓ Compiled in 55ms
+[02:32:54.056] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"f00efca3-af57-4857-86ee-4a2859b4cf2a"}
+[02:34:05.190] Server  LOG     ✓ Compiled in 68ms
+[02:34:06.250] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"e53003fe-576e-4087-a56c-57fa0fae4746"}
+[02:36:04.375] Server  LOG     ✓ Compiled in 77ms
+[02:36:05.468] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"820eae82-c016-4643-8eed-9401cf205c5f"}
+[02:37:17.079] Server  LOG     ✓ Compiled in 68ms
+[02:37:18.128] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"5dedbd57-ea71-44da-b574-771336eb8e92"}
+[02:38:34.411] Server  LOG     ✓ Compiled in 59ms
+[02:38:35.448] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"b8ba13ed-0cea-43fb-b909-3cacd0cd9c46"}
+[02:40:47.138] Server  LOG     ✓ Compiled in 53ms
+[02:40:48.174] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"8f4fae31-be48-4263-b6cb-236bcae941a9"}
+[02:40:58.150] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"bffe7a3d-9b28-4a99-8d79-1ebb5b6e624d"}
+[02:50:54.096] Server  LOG     ✓ Compiled in 58ms
+[02:50:55.059] Browser ERROR   uncaughtError: TypeError: can't access property "toFixed", v is undefined
+[02:54:19.889] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[02:54:19.903] Server  LOG     ✓ Compiled in 58ms
+[02:54:20.578] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:54:22.003] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"679ee6e4-01a2-42cb-938c-de19956c0d4c"}
+[02:55:29.149] Server  LOG     ✓ Compiled in 59ms
+[02:55:30.190] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"b2956115-c487-4984-adc5-faa95b8d8f01"}
+[02:56:21.851] Server  LOG     ✓ Compiled in 72ms
+[02:56:22.843] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"d10b5037-0cfe-4846-8faa-cff8879cff9e"}
+[02:56:37.840] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:56:38.703] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"c5ff2b41-736e-4ac4-9644-7023bca5b09a"}
+[03:01:33.461] Server  LOG     ✓ Compiled in 89ms
+[03:01:34.509] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"089ec58e-5cc5-4d66-adc2-add314feeb9b"}
+[03:04:10.799] Server  LOG     ✓ Compiled in 61ms
+[03:04:11.827] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"f585daf3-aa1f-430b-857c-9013ed9ec618"}
+[03:07:57.630] Server  LOG     ✓ Compiled in 139ms
+[03:07:58.405] Browser ERROR   ./components/workspace/character/CharacterMeshView.tsx:550:4
+Parsing ecmascript source code failed
+  548 |     pos.needsUpdate = true;
+  549 |     geom.computeVertexNormals();
+> 550 |   });
+      |    ^
+  551 | }
+  552 |
+  553 |   // -----------------------------
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./components/workspace/character/CharacterMeshView.tsx [Client Component Browser]
+    ./components/workspace/WorkspaceRouter.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/workspace/character/CharacterMeshView.tsx [Client Component SSR]
+    ./components/workspace/WorkspaceRouter.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[03:08:29.349] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"ecf3c418-9690-4dfb-8716-85e73a853a53"}
+[03:10:27.366] Server  LOG     ✓ Compiled in 122ms
+[03:10:28.415] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"73db86ca-27dc-4af3-902e-8d8154f02578"}
+[03:12:13.038] Server  LOG     ✓ Compiled in 66ms
+[03:12:14.068] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"bea37438-5f82-43f7-a790-26dfc3af9935"}
+[03:25:11.245] Server  LOG     ✓ Compiled in 94ms
+[03:25:12.298] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"5c02e8cc-e88e-4f19-8ddb-e23b37725d94"}
+[03:32:24.423] Server  LOG     ✓ Compiled in 99ms
+[03:32:25.464] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"b11556cf-a1d1-4ca7-8534-2430606ad1da"}
+[03:32:33.011] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:32:33.872] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"8c9acf51-011e-4743-ae71-58346cd59ff1"}
+[03:34:01.097] Server  LOG     ✓ Compiled in 69ms
+[03:34:02.144] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"52f878a2-fd43-4be3-8253-33eb08f37b08"}
+[03:34:51.173] Server  LOG     ✓ Compiled in 71ms
+[03:34:51.982] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"fa6a0cb2-3ea9-4a19-ad93-3ce8c2faebf3"}
+[03:34:58.809] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:34:59.698] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"91010680-6cad-48f1-82a3-1ba5d29e206b"}
+[03:38:43.111] Server  LOG     ✓ Compiled in 78ms
+[03:38:44.168] Browser LOG     [BODY PICK] dev_test_fileMesh {"score":135937,"uuid":"e142f8d8-d2f5-44ce-8036-1469167c6ca0"}
