@@ -158,9 +158,36 @@ function dataUrlToBlob(dataUrl: string): { blob: Blob; mime: string } {
 }
 
 async function urlToBlob(url: string): Promise<{ blob: Blob; mime: string }> {
-  const res = await fetch(url);
-  const blob = await res.blob();
-  return { blob, mime: blob.type || "image/png" };
+  // Try fetch first (works for http/https and some blob: URLs)
+  try {
+    const res = await fetch(url);
+    if (res.ok) {
+      const blob = await res.blob();
+      return { blob, mime: blob.type || "image/png" };
+    }
+  } catch {
+    // fetch failed on this URL — fall through to canvas fallback
+  }
+
+  // Fallback: render through an <img> + canvas (handles blob: URLs reliably)
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject(new Error("Could not get canvas context"));
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(
+        (b) => (b ? resolve({ blob: b, mime: "image/png" }) : reject(new Error("toBlob failed"))),
+        "image/png"
+      );
+    };
+    img.onerror = () => reject(new Error("Failed to load image for blob conversion"));
+    img.src = url;
+  });
 }
 
 export default function CharacterModelTool() {
@@ -436,9 +463,9 @@ export default function CharacterModelTool() {
       return;
     }
 
-    // revoke current blob urls safely using functional update
+    // revoke only the previous URL for this specific view, not all views
     setImagesByView((prev) => {
-      revokeAllBlobsFrom(prev); // your original behavior: revoke everything before replacing
+      revokeIfBlob(prev[view]);
       const url = URL.createObjectURL(file);
       return { ...prev, [view]: url };
     });
