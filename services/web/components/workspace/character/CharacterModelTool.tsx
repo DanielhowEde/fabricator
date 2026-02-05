@@ -289,6 +289,44 @@ export default function CharacterModelTool() {
     };
   }, [reconstructionTaskId, isReconstructing]);
 
+  /**
+   * Convert any image source (data: URL, blob: URL) to a Blob.
+   * Uses canvas rendering as a reliable fallback when fetch on blob: URLs fails.
+   */
+  async function srcToBlob(src: string): Promise<Blob> {
+    // data: URLs can be decoded directly
+    if (src.startsWith("data:")) {
+      return dataUrlToBlob(src).blob;
+    }
+
+    // For blob: URLs, try fetch first, fall back to canvas
+    try {
+      const res = await fetch(src);
+      if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
+      return await res.blob();
+    } catch {
+      // Fallback: draw to canvas and export as PNG
+      return new Promise<Blob>((resolve, reject) => {
+        const img = new window.Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) return reject(new Error("Could not get canvas context"));
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(
+            (blob) => (blob ? resolve(blob) : reject(new Error("canvas.toBlob returned null"))),
+            "image/png"
+          );
+        };
+        img.onerror = () => reject(new Error("Failed to load image for conversion"));
+        img.src = src;
+      });
+    }
+  }
+
   async function startReconstruction() {
     // Get front image (required)
     const frontSrc = imagesByView.front;
@@ -305,27 +343,18 @@ export default function CharacterModelTool() {
     try {
       const formData = new FormData();
 
-      // Convert image URLs to blobs and add to form
-      const frontBlob = frontSrc.startsWith("data:")
-        ? dataUrlToBlob(frontSrc).blob
-        : (await urlToBlob(frontSrc)).blob;
-      formData.append("front", frontBlob, "front.png");
+      // Convert image sources to blobs
+      formData.append("front", await srcToBlob(frontSrc), "front.png");
 
       // Add optional views
       const sideSrc = imagesByView.side;
       if (sideSrc) {
-        const sideBlob = sideSrc.startsWith("data:")
-          ? dataUrlToBlob(sideSrc).blob
-          : (await urlToBlob(sideSrc)).blob;
-        formData.append("side", sideBlob, "side.png");
+        formData.append("side", await srcToBlob(sideSrc), "side.png");
       }
 
       const backSrc = imagesByView.back;
       if (backSrc) {
-        const backBlob = backSrc.startsWith("data:")
-          ? dataUrlToBlob(backSrc).blob
-          : (await urlToBlob(backSrc)).blob;
-        formData.append("back", backBlob, "back.png");
+        formData.append("back", await srcToBlob(backSrc), "back.png");
       }
 
       formData.append("mode", "full");
