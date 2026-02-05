@@ -1,1 +1,26 @@
 node_modules
+.next
+
+# Secrets / environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.production.local
+*.key
+*.pem
+credentials.json
+
+# Claude Code local settings
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db

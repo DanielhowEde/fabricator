@@ -1,22 +1,78 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, BackgroundTasks
+from fastapi.responses import FileResponse
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
+import shutil
+import asyncio
 
-app = FastAPI()
+app = FastAPI(title="Fabricator Python Service", version="1.0.0")
 
-SHARED_VIDEOS = Path("/shared/videos")
+# Paths
+SHARED_BASE = Path("/shared")
+SHARED_VIDEOS = SHARED_BASE / "videos"
+SHARED_UPLOADS = SHARED_BASE / "uploads"
+SHARED_OUTPUTS = SHARED_BASE / "outputs"
+
+# Initialize task manager and pipeline
+from app.reconstruction.tasks import TaskManager, TaskStatus
+from app.reconstruction.pipeline import ReconstructionPipeline
+
+task_manager = TaskManager(output_base=SHARED_OUTPUTS)
+reconstruction_pipeline = ReconstructionPipeline(task_manager)
+
 
 @app.get("/")
 def root():
     return {"ok": True, "service": "python", "hint": "Try /health or /docs"}
 
+
 @app.get("/health")
 def health():
     return {"ok": True, "service": "python"}
 
+
+@app.get("/api/v1/reconstruction/generators")
+def list_generators():
+    """List available mesh generation backends."""
+    from app.reconstruction.mesh_gen import SilhouetteMeshGenerator, PIFuHDGenerator
+
+    generators = []
+
+    # Check silhouette generator
+    silhouette = SilhouetteMeshGenerator()
+    generators.append({
+        "name": silhouette.name,
+        "available": silhouette.is_available(),
+        "description": "Basic silhouette-based mesh extrusion",
+        "quality": "low",
+        "requires_gpu": False,
+    })
+
+    # Check PIFuHD generator
+    pifuhd = PIFuHDGenerator()
+    generators.append({
+        "name": pifuhd.name,
+        "available": pifuhd.is_available(),
+        "description": "High-quality neural network reconstruction",
+        "quality": "high",
+        "requires_gpu": True,
+    })
+
+    # Determine best available
+    best = next((g["name"] for g in generators if g["available"]), None)
+
+    return {
+        "ok": True,
+        "generators": generators,
+        "best_available": best,
+    }
+
+
 @app.get("/compute")
 def compute(x: int = 2, y: int = 3):
     return {"x": x, "y": y, "sum": x + y}
+
 
 @app.post("/generate")
 def generate():
@@ -34,4 +90,173 @@ def generate():
         "ok": True,
         "written_to": str(output_file),
         "timestamp": timestamp
+    }
+
+
+# ============================================================================
+# Reconstruction API (Phase 1A)
+# ============================================================================
+
+@app.post("/api/v1/reconstruction/start")
+async def start_reconstruction(
+    background_tasks: BackgroundTasks,
+    front: UploadFile = File(..., description="Front view image (required)"),
+    side: Optional[UploadFile] = File(None, description="Side view image (optional)"),
+    back: Optional[UploadFile] = File(None, description="Back view image (optional)"),
+    mode: str = Form("full", description="Reconstruction mode: 'quick' or 'full'"),
+):
+    """Start a new reconstruction task from uploaded photos.
+
+    Returns a task_id that can be used to poll for status and retrieve results.
+    """
+    # Validate mode
+    if mode not in ("quick", "full"):
+        raise HTTPException(status_code=400, detail="mode must be 'quick' or 'full'")
+
+    # Validate front image
+    if not front.content_type or not front.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="front must be an image file")
+
+    # Create task
+    task_id = task_manager.create_task()
+
+    # Save uploaded images
+    upload_dir = SHARED_UPLOADS / task_id
+    upload_dir.mkdir(parents=True, exist_ok=True)
+
+    images = {}
+
+    # Save front (required)
+    front_path = upload_dir / f"front{_get_extension(front.filename)}"
+    with open(front_path, "wb") as f:
+        shutil.copyfileobj(front.file, f)
+    images["front"] = front_path
+
+    # Save side (optional)
+    if side and side.filename:
+        side_path = upload_dir / f"side{_get_extension(side.filename)}"
+        with open(side_path, "wb") as f:
+            shutil.copyfileobj(side.file, f)
+        images["side"] = side_path
+
+    # Save back (optional)
+    if back and back.filename:
+        back_path = upload_dir / f"back{_get_extension(back.filename)}"
+        with open(back_path, "wb") as f:
+            shutil.copyfileobj(back.file, f)
+        images["back"] = back_path
+
+    # Start background processing
+    background_tasks.add_task(_run_reconstruction, task_id, images, mode)
+
+    return {
+        "ok": True,
+        "task_id": task_id,
+        "status": "queued",
+        "message": f"Reconstruction started with {len(images)} image(s)",
+    }
+
+
+async def _run_reconstruction(task_id: str, images: dict, mode: str):
+    """Background task to run reconstruction pipeline."""
+    try:
+        await reconstruction_pipeline.run(task_id, images, mode)
+    except Exception as e:
+        # Error already logged in pipeline
+        pass
+
+
+def _get_extension(filename: Optional[str]) -> str:
+    """Get file extension from filename."""
+    if not filename:
+        return ".png"
+    ext = Path(filename).suffix
+    return ext if ext else ".png"
+
+
+@app.get("/api/v1/reconstruction/status/{task_id}")
+async def get_reconstruction_status(task_id: str):
+    """Get the status of a reconstruction task."""
+    task = task_manager.get_task(task_id)
+
+    if not task:
+        raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
+
+    return {
+        "ok": True,
+        **task_manager.task_to_dict(task),
+    }
+
+
+@app.get("/api/v1/reconstruction/result/{task_id}")
+async def get_reconstruction_result(task_id: str):
+    """Get the results of a completed reconstruction task."""
+    task = task_manager.get_task(task_id)
+
+    if not task:
+        raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
+
+    if task.status != TaskStatus.COMPLETED:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Task not completed. Current status: {task.status.value}",
+        )
+
+    output_dir = task_manager.get_task_output_dir(task_id)
+
+    return {
+        "ok": True,
+        "task_id": task_id,
+        "output_dir": str(output_dir),
+        "files": task.result_paths,
+    }
+
+
+@app.get("/api/v1/reconstruction/result/{task_id}/mesh")
+async def download_reconstruction_mesh(task_id: str):
+    """Download the reconstructed mesh GLB file."""
+    task = task_manager.get_task(task_id)
+
+    if not task:
+        raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
+
+    if task.status != TaskStatus.COMPLETED:
+        raise HTTPException(status_code=400, detail="Task not completed")
+
+    mesh_path = task.result_paths.get("mesh")
+    if not mesh_path or not Path(mesh_path).exists():
+        raise HTTPException(status_code=404, detail="Mesh file not found")
+
+    return FileResponse(
+        mesh_path,
+        media_type="model/gltf-binary",
+        filename=f"{task_id}_mesh.glb",
+    )
+
+
+@app.delete("/api/v1/reconstruction/cancel/{task_id}")
+async def cancel_reconstruction(task_id: str):
+    """Cancel a running reconstruction task (if possible)."""
+    task = task_manager.get_task(task_id)
+
+    if not task:
+        raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
+
+    if task.status in (TaskStatus.COMPLETED, TaskStatus.FAILED):
+        return {
+            "ok": False,
+            "message": f"Task already {task.status.value}",
+        }
+
+    # Mark as failed (actual cancellation would require more infrastructure)
+    await task_manager.update_task(
+        task_id,
+        status=TaskStatus.FAILED,
+        stage_message="Cancelled by user",
+        error="Task cancelled",
+    )
+
+    return {
+        "ok": True,
+        "message": "Task cancellation requested",
     }

@@ -35,6 +35,14 @@ type GenResponse =
   | { ok: true; b64: string; mime: string }
   | { ok?: false; error?: string; details?: string };
 
+type ReconstructionStatus = {
+  task_id: string;
+  status: "queued" | "preprocessing" | "generating_mesh" | "extracting_texture" | "exporting" | "completed" | "failed";
+  progress: number;
+  stage_message: string;
+  error?: string;
+};
+
 type CharacterRecord = {
   id: string;
   name: string;
@@ -181,6 +189,12 @@ export default function CharacterModelTool() {
   const [imageLabel, setImageLabel] = useState<string | null>(null);
   const [showPromptPreview, setShowPromptPreview] = useState(true);
 
+  // Reconstruction state
+  const [reconstructionTaskId, setReconstructionTaskId] = useState<string | null>(null);
+  const [reconstructionStatus, setReconstructionStatus] = useState<ReconstructionStatus | null>(null);
+  const [isReconstructing, setIsReconstructing] = useState(false);
+  const pollRef = useRef<NodeJS.Timeout | null>(null);
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const EMPTY_IMAGES: Record<View, string | null> = useMemo(
@@ -231,6 +245,108 @@ export default function CharacterModelTool() {
   async function refreshCharacterList() {
     const all = await listCharacters<CharacterRecord>();
     setCharacterList(all.map((c) => ({ id: c.id, name: c.name })));
+  }
+
+  // Reconstruction status polling
+  useEffect(() => {
+    if (!reconstructionTaskId || !isReconstructing) {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+      return;
+    }
+
+    const pollStatus = async () => {
+      try {
+        const res = await fetch(`/api/reconstruction/status/${reconstructionTaskId}`);
+        const data = await res.json();
+
+        if (data.ok !== false) {
+          setReconstructionStatus(data);
+
+          if (data.status === "completed") {
+            setIsReconstructing(false);
+            setImageLabel("3D reconstruction complete! Check the Mesh tab.");
+          } else if (data.status === "failed") {
+            setIsReconstructing(false);
+            setErr(data.error || "Reconstruction failed");
+          }
+        }
+      } catch (error) {
+        console.error("Failed to poll reconstruction status:", error);
+      }
+    };
+
+    pollStatus();
+    pollRef.current = setInterval(pollStatus, 1000);
+
+    return () => {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+    };
+  }, [reconstructionTaskId, isReconstructing]);
+
+  async function startReconstruction() {
+    // Get front image (required)
+    const frontSrc = imagesByView.front;
+    if (!frontSrc) {
+      setErr("Front view image is required for 3D reconstruction");
+      return;
+    }
+
+    setErr(null);
+    setIsReconstructing(true);
+    setReconstructionStatus(null);
+    setImageLabel("Starting 3D reconstruction...");
+
+    try {
+      const formData = new FormData();
+
+      // Convert image URLs to blobs and add to form
+      const frontBlob = frontSrc.startsWith("data:")
+        ? dataUrlToBlob(frontSrc).blob
+        : (await urlToBlob(frontSrc)).blob;
+      formData.append("front", frontBlob, "front.png");
+
+      // Add optional views
+      const sideSrc = imagesByView.side;
+      if (sideSrc) {
+        const sideBlob = sideSrc.startsWith("data:")
+          ? dataUrlToBlob(sideSrc).blob
+          : (await urlToBlob(sideSrc)).blob;
+        formData.append("side", sideBlob, "side.png");
+      }
+
+      const backSrc = imagesByView.back;
+      if (backSrc) {
+        const backBlob = backSrc.startsWith("data:")
+          ? dataUrlToBlob(backSrc).blob
+          : (await urlToBlob(backSrc)).blob;
+        formData.append("back", backBlob, "back.png");
+      }
+
+      formData.append("mode", "full");
+
+      const res = await fetch("/api/reconstruction/start", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || data.ok === false) {
+        throw new Error(data.error || "Failed to start reconstruction");
+      }
+
+      setReconstructionTaskId(data.task_id);
+      setImageLabel(`Reconstruction started (${data.task_id.slice(0, 8)}...)`);
+    } catch (error: any) {
+      setErr(error?.message || "Failed to start 3D reconstruction");
+      setIsReconstructing(false);
+    }
   }
 
   function buildPromptForView(v: View) {
@@ -678,6 +794,22 @@ export default function CharacterModelTool() {
               >
                 Clear
               </button>
+
+              <button
+                className="rounded-xl border border-blue-500/50 bg-blue-600 px-3 py-2 text-sm text-white disabled:opacity-50"
+                onClick={() => void startReconstruction()}
+                type="button"
+                disabled={!imagesByView.front || isReconstructing || busy}
+                title={
+                  !imagesByView.front
+                    ? "Need front view image for reconstruction"
+                    : isReconstructing
+                      ? "Reconstruction in progress..."
+                      : "Create 3D mesh from reference images"
+                }
+              >
+                {isReconstructing ? "Reconstructing..." : "Reconstruct 3D"}
+              </button>
             </>
           )}
         </div>
@@ -977,6 +1109,29 @@ export default function CharacterModelTool() {
             {err && (
               <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-200">
                 {err}
+              </div>
+            )}
+
+            {/* Reconstruction Progress */}
+            {isReconstructing && reconstructionStatus && (
+              <div className="mt-4 rounded-xl border border-blue-500/30 bg-blue-500/10 p-3">
+                <div className="flex justify-between text-sm text-blue-300 mb-2">
+                  <span>{reconstructionStatus.stage_message}</span>
+                  <span>{Math.round(reconstructionStatus.progress * 100)}%</span>
+                </div>
+                <div className="h-2 bg-blue-900/50 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-blue-500 transition-all duration-300"
+                    style={{ width: `${reconstructionStatus.progress * 100}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Reconstruction Complete */}
+            {reconstructionStatus?.status === "completed" && !isReconstructing && (
+              <div className="mt-4 rounded-xl border border-green-500/30 bg-green-500/10 p-3 text-sm text-green-300">
+                3D reconstruction complete! The mesh is ready.
               </div>
             )}
           </div>

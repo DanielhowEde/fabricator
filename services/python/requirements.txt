@@ -1,3 +1,4 @@
+# Web framework
 annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.12.1
@@ -11,3 +12,32 @@ starlette==0.50.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 uvicorn==0.40.0
+python-multipart==0.0.9
+aiofiles==24.1.0
+
+# Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+scipy>=1.11.0
+
+# 3D Processing
+trimesh>=4.0.0
+pygltflib>=1.16.0
+PyMCubes>=0.1.4
+
+# Image Processing
+opencv-python-headless>=4.8.0
+Pillow>=10.0.0
+
+# Background removal
+rembg>=2.0.50
+
+# Human body models (SMPL-X)
+smplx>=0.1.28
+chumpy>=0.70
+
+# Additional utilities
+scikit-image>=0.21.0
+tqdm>=4.66.0
+requests>=2.31.0
