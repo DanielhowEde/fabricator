@@ -149,49 +149,41 @@ class ReconstructionPipeline:
         """Generate 3D mesh from images using AI reconstruction."""
         mesh_path = output_dir / "mesh.glb"
 
-        try:
-            # Load images as numpy arrays
-            front_image = None
-            side_image = None
-            back_image = None
+        # Load images as numpy arrays
+        front_image = None
+        side_image = None
+        back_image = None
 
-            if "front" in images:
-                front_image = np.array(Image.open(images["front"]).convert("RGB"))
-            if "side" in images:
-                side_image = np.array(Image.open(images["side"]).convert("RGB"))
-            if "back" in images:
-                back_image = np.array(Image.open(images["back"]).convert("RGB"))
+        if "front" in images:
+            front_image = np.array(Image.open(images["front"]).convert("RGB"))
+        if "side" in images:
+            side_image = np.array(Image.open(images["side"]).convert("RGB"))
+        if "back" in images:
+            back_image = np.array(Image.open(images["back"]).convert("RGB"))
 
-            if front_image is None:
-                raise ValueError("Front image is required for mesh generation")
+        if front_image is None:
+            raise ValueError("Front image is required for mesh generation")
 
-            # Select generator based on mode
-            generator_name = None
-            if mode == "quick":
-                generator_name = "silhouette"  # Always use silhouette for quick mode
+        # Select generator based on mode
+        generator_name = None
+        if mode == "quick":
+            generator_name = "silhouette"  # Always use silhouette for quick mode
 
-            # Generate mesh
-            logger.info(f"Starting mesh generation (mode={mode}, generator={generator_name or 'auto'})")
-            vertices, faces, used_generator = generate_mesh_from_images(
-                front_image=front_image,
-                side_image=side_image,
-                back_image=back_image,
-                generator_name=generator_name,
-            )
+        # Generate mesh
+        logger.info(f"Starting mesh generation (mode={mode}, generator={generator_name or 'auto'})")
+        vertices, faces, used_generator = generate_mesh_from_images(
+            front_image=front_image,
+            side_image=side_image,
+            back_image=back_image,
+            generator_name=generator_name,
+        )
 
-            self._generator_name = used_generator
-            logger.info(f"Mesh generated: {len(vertices)} vertices, {len(faces)} faces using {used_generator}")
+        self._generator_name = used_generator
+        logger.info(f"Mesh generated: {len(vertices)} vertices, {len(faces)} faces using {used_generator}")
 
-            # Export to GLB
-            export_mesh_to_glb(vertices, faces, mesh_path)
-            logger.info(f"Mesh exported to {mesh_path}")
-
-        except Exception as e:
-            logger.error(f"Mesh generation failed: {e}")
-            # Fallback to placeholder
-            logger.info("Falling back to placeholder mesh")
-            create_placeholder_glb(mesh_path)
-            self._generator_name = "placeholder"
+        # Export to GLB
+        export_mesh_to_glb(vertices, faces, mesh_path)
+        logger.info(f"Mesh exported to {mesh_path}")
 
         return mesh_path
 

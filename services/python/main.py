@@ -5,6 +5,9 @@ from pathlib import Path
 from typing import Optional
 import shutil
 import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Fabricator Python Service", version="1.0.0")
 
@@ -162,8 +165,7 @@ async def _run_reconstruction(task_id: str, images: dict, mode: str):
     try:
         await reconstruction_pipeline.run(task_id, images, mode)
     except Exception as e:
-        # Error already logged in pipeline
-        pass
+        logger.error(f"Reconstruction task {task_id} failed: {e}", exc_info=True)
 
 
 def _get_extension(filename: Optional[str]) -> str:

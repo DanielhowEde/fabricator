@@ -226,8 +226,11 @@ class SilhouetteMeshGenerator(MeshGenerator):
         mesh = trimesh.Trimesh(vertices=vertices, faces=faces)
         mesh.fix_normals()
 
-        # Smooth the mesh
-        trimesh.smoothing.filter_laplacian(mesh, iterations=2)
+        # Smooth the mesh (optional; tolerate API differences across trimesh versions)
+        try:
+            trimesh.smoothing.filter_laplacian(mesh, iterations=2)
+        except Exception as e:
+            logger.warning(f"Mesh smoothing skipped ({e}), using unsmoothed mesh")
 
         return mesh.vertices, mesh.faces
 

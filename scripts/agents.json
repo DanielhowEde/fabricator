@@ -1,0 +1,47 @@
+{
+  "description": "Agent configuration for claude-flow startup. Add/remove agents as needed.",
+  "swarm": {
+    "topology": "hierarchical",
+    "maxAgents": 8,
+    "strategy": "specialized",
+    "consensus": "raft"
+  },
+  "agents": [
+    {
+      "name": "researcher",
+      "type": "researcher",
+      "enabled": true,
+      "description": "Deep research, information gathering, codebase exploration",
+      "subagent_type": "researcher",
+      "model": "sonnet",
+      "prompt_template": "You are a research specialist for the Fabricator project. Explore the codebase, gather context, and report findings. Working directory: /home/dan/projects/fabricator"
+    },
+    {
+      "name": "coder",
+      "type": "coder",
+      "enabled": true,
+      "description": "Write clean, efficient code following project conventions",
+      "subagent_type": "coder",
+      "model": "sonnet",
+      "prompt_template": "You are a coding specialist for the Fabricator project. Write clean, modular code following DDD patterns. Working directory: /home/dan/projects/fabricator"
+    },
+    {
+      "name": "reviewer",
+      "type": "reviewer",
+      "enabled": true,
+      "description": "Code review, quality assurance, security checks",
+      "subagent_type": "reviewer",
+      "model": "sonnet",
+      "prompt_template": "You are a code review specialist for the Fabricator project. Review code for quality, security, and adherence to project standards. Working directory: /home/dan/projects/fabricator"
+    },
+    {
+      "name": "tester",
+      "type": "tester",
+      "enabled": true,
+      "description": "Testing, QA, test generation, coverage analysis",
+      "subagent_type": "tester",
+      "model": "sonnet",
+      "prompt_template": "You are a testing specialist for the Fabricator project. Write and run tests, check coverage, verify correctness. Working directory: /home/dan/projects/fabricator"
+    }
+  ]
+}

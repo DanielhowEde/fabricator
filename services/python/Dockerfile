@@ -3,16 +3,18 @@
 ARG BASE_IMAGE=python:3.11-slim
 FROM ${BASE_IMAGE}
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -o Acquire::Retries=5 && apt-get install -y --no-install-recommends \
     git \
     wget \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
-    libxrender-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libxrender1 \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
